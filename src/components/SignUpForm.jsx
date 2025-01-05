@@ -28,7 +28,7 @@ const SignUpForm = ({ setVisibleLogin }) => {
   const onSubmit = async (data) => {
     setLoading(true);
     if (data.passwordCheck === data.password) {
-      console.log("User Type:", data.userType); // Kullanıcı tipi burada alınır.
+      console.log("User Type:", data.userType); // User type buradan alınır.
 
       setLoading(true);
       setErrorMsg('');
@@ -53,10 +53,10 @@ const SignUpForm = ({ setVisibleLogin }) => {
           password: data.password,
           role: data.userType,
         });
-        alert('Kayıt başarılı!');
+        alert('Registration successful!');
         navigate('/login'); // Kayıt başarılı olduğunda login sayfasına yönlendir
       } catch (error) {
-        setErrorMsg('Kayıt başarısız. Lütfen tekrar deneyin.');
+        setErrorMsg('Registration failed. Please try again.');
         console.error('Error registering user:', error);
       } finally {
         setLoading(false);

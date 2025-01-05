@@ -46,7 +46,7 @@ const FavoritesPage = () => {
 
     return (
         <div className="p-4">
-            <h1 className="text-2xl font-bold text-primary mb-4">Favori Ürünlerim</h1>
+            <h1 className="text-2xl font-bold text-primary mb-4">My Favorite Products</h1>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {products.map((product) => (
                     <div key={product.id} className="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
@@ -57,7 +57,7 @@ const FavoritesPage = () => {
                         </Link>
                         <button onClick={() => handleRemoveFavorite(favorites.find(fav => fav.product === product.id).id)} className="text-red-500 hover:text-red-700 mt-2">
                             <TrashIcon className="w-5 h-5" />
-                            Favorilerden Kaldır
+                            Remove from Favorites
                         </button>
                     </div>
                 ))}

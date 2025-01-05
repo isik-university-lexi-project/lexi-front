@@ -89,60 +89,60 @@ const AddressesPage = () => {
 
     return (
         <div className="p-4">
-            <h1 className="text-2xl font-bold text-primary mb-4">Adreslerim</h1>
+            <h1 className="text-2xl font-bold text-primary mb-4">My Addresses</h1>
             {!showForm && (
                 <button onClick={() => setShowForm(true)} className="bg-purple-500 text-white p-3 text-lg rounded mb-4">
-                    Adres Ekle
+                    Add Addresses
                 </button>
             )}
             {showForm && (
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mb-8">
                     <div>
-                        <label className="block text-gray-700">Telefon</label>
+                        <label className="block text-gray-700">Phone Number</label>
                         <input
-                            {...register('telephone', { required: 'Bu alan zorunludur' })}
+                            {...register('telephone', { required: 'This field is required' })}
                             className="w-full p-3 text-lg border border-gray-300 rounded"
                         />
                         {errors.telephone && <span className="text-red-500">{errors.telephone.message}</span>}
                     </div>
                     <div>
-                        <label className="block text-gray-700">Adres</label>
+                        <label className="block text-gray-700">Addresses</label>
                         <input
-                            {...register('address', { required: 'Bu alan zorunludur' })}
+                            {...register('address', { required: 'This field is required' })}
                             className="w-full p-3 text-lg border border-gray-300 rounded"
                         />
                         {errors.address && <span className="text-red-500">{errors.address.message}</span>}
                     </div>
                     <div>
-                        <label className="block text-gray-700">Şehir</label>
+                        <label className="block text-gray-700">City</label>
                         <input
-                            {...register('city', { required: 'Bu alan zorunludur' })}
+                            {...register('city', { required: 'This field is required' })}
                             className="w-full p-3 text-lg border border-gray-300 rounded"
                         />
                         {errors.city && <span className="text-red-500">{errors.city.message}</span>}
                     </div>
                     <div>
-                        <label className="block text-gray-700">İlçe</label>
+                        <label className="block text-gray-700">Town</label>
                         <input
-                            {...register('state', { required: 'Bu alan zorunludur' })}
+                            {...register('state', { required: 'This field is required' })}
                             className="w-full p-3 text-lg border border-gray-300 rounded"
                         />
                         {errors.state && <span className="text-red-500">{errors.state.message}</span>}
                     </div>
                     <div>
-                        <label className="block text-gray-700">Posta Kodu</label>
+                        <label className="block text-gray-700">Postal Code</label>
                         <input
-                            {...register('zipcode', { required: 'Bu alan zorunludur' })}
+                            {...register('zipcode', { required: 'This field is required' })}
                             className="w-full p-3 text-lg border border-gray-300 rounded"
                         />
                         {errors.zipcode && <span className="text-red-500">{errors.zipcode.message}</span>}
                     </div>
                     <div className="flex space-x-4">
                         <button type="submit" className="bg-purple-500 text-white p-3 text-lg rounded">
-                            {editingAddress ? 'Güncelle' : 'Ekle'}
+                            {editingAddress ? 'Update' : 'Add'}
                         </button>
                         <button type="button" onClick={handleCancel} className="bg-gray-500 text-white p-3 text-lg rounded">
-                            Vazgeç
+                            Cancel
                         </button>
                     </div>
                 </form>
@@ -169,14 +169,14 @@ const AddressesPage = () => {
             {showDeleteModal && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
                     <div className="bg-white p-4 rounded-lg shadow-lg">
-                        <h2 className="text-xl font-bold mb-4">Adres Sil</h2>
-                        <p>Bu adresi silmek istediğinizden emin misiniz?</p>
+                        <h2 className="text-xl font-bold mb-4">Delete Addresses</h2>
+                        <p>Are you sure you want to delete this address?</p>
                         <div className="flex space-x-4 mt-4">
                             <button onClick={handleDeleteAddress} className="bg-red-500 text-white p-3 text-lg rounded">
-                                Evet
+                                YES
                             </button>
                             <button onClick={() => setShowDeleteModal(false)} className="bg-gray-500 text-white p-3 text-lg rounded">
-                                Hayır
+                                NO
                             </button>
                         </div>
                     </div>

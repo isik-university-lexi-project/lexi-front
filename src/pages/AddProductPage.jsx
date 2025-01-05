@@ -16,7 +16,7 @@ const AddProductPage = () => {
     formData.append('description', data.description);
     formData.append('price', data.price);
     formData.append('stockCount', data.stockCount);
-    formData.append('image', data.image[0]); // Resim dosyasını ekliyoruz
+    formData.append('image', data.image[0]); // Resim dosyasını ekleme
 
     try {
       await axiosInstance.post(`${ApiDefaults.BASE_URL}/product/`, formData);
@@ -30,53 +30,53 @@ const AddProductPage = () => {
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold text-primary mb-4">Ürün Ekle</h1>
+      <h1 className="text-2xl font-bold text-primary mb-4">Add Product</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div>
-          <label className="block text-gray-700">Ürün İsmi</label>
+          <label className="block text-gray-700">Product Name</label>
           <input
-            {...register('name', { required: 'Bu alan zorunludur' })}
+            {...register('name', { required: 'This field is required' })}
             className="w-full p-2 border border-gray-300 rounded"
           />
           {errors.name && <span className="text-red-500">{errors.name.message}</span>}
         </div>
         <div>
-          <label className="block text-gray-700">Ürün Açıklaması</label>
+          <label className="block text-gray-700">Product Description</label>
           <textarea
-            {...register('description', { required: 'Bu alan zorunludur' })}
+            {...register('description', { required: 'This field is required' })}
             className="w-full p-2 border border-gray-300 rounded"
           />
           {errors.description && <span className="text-red-500">{errors.description.message}</span>}
         </div>
         <div>
-          <label className="block text-gray-700">Fiyat</label>
+          <label className="block text-gray-700">Price</label>
           <input
             type="number"
-            {...register('price', { required: 'Bu alan zorunludur' })}
+            {...register('price', { required: 'This field is required' })}
             className="w-full p-2 border border-gray-300 rounded"
           />
           {errors.price && <span className="text-red-500">{errors.price.message}</span>}
         </div>
         <div>
-          <label className="block text-gray-700">Stok Adedi</label>
+          <label className="block text-gray-700">Stock Quantity</label>
           <input
             type="number"
-            {...register('stockCount', { required: 'Bu alan zorunludur' })}
+            {...register('stockCount', { required: 'This field is required' })}
             className="w-full p-2 border border-gray-300 rounded"
           />
           {errors.stockCount && <span className="text-red-500">{errors.stockCount.message}</span>}
         </div>
         <div>
-          <label className="block text-gray-700">Ürün Resmi</label>
+          <label className="block text-gray-700">Product Image</label>
           <input
             type="file"
-            {...register('image', { required: 'Bu alan zorunludur' })}
+            {...register('image', { required: 'This field is required' })}
             className="w-full p-2 border border-gray-300 rounded"
           />
           {errors.image && <span className="text-red-500">{errors.image.message}</span>}
         </div>
         <button type="submit" className="bg-purple-500 text-white p-2 rounded" disabled={loading}>
-          {loading ? 'Yükleniyor...' : 'Ürün Ekle'}
+          {loading ? 'Loading...' : 'Add Product'}
         </button>
       </form>
     </div>

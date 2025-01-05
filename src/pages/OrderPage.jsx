@@ -16,8 +16,10 @@ const OrderPage = () => {
     const fetchOrders = async () => {
         try {
             const response = await axiosInstance.get(`${ApiDefaults.BASE_URL}/order/list/`);
-            setOrders(response.data);
-            fetchProducts(response.data);
+            // Siparişleri tarihe göre sıralıyoruz (en son oluşturulan en üstte olacak şekilde)
+            const sortedOrders = response.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+            setOrders(sortedOrders);
+            fetchProducts(sortedOrders);
         } catch (error) {
             console.error('Error fetching orders:', error);
         }
@@ -64,7 +66,7 @@ const OrderPage = () => {
     const handleSubmitFeedback = async (productId) => {
         const { rating, comment } = feedbacks[productId] || {};
         if (!rating || !comment) {
-            alert('Lütfen değerlendirme ve yorum girin.');
+            alert('Please enter your rating and comment.');
             return;
         }
 
@@ -74,7 +76,7 @@ const OrderPage = () => {
                 rating,
                 comment
             });
-            alert('Değerlendirmeniz için teşekkür ederiz.');
+            alert('Thank you for your evaluation.');
             setFeedbacks(prevFeedbacks => ({
                 ...prevFeedbacks,
                 [productId]: {
@@ -85,14 +87,11 @@ const OrderPage = () => {
             fetchOrders(); // Değerlendirme yapıldıktan sonra siparişleri yeniden çek
         } catch (error) {
             console.error('Error submitting feedback:', error);
-            alert('Değerlendirme gönderilirken bir hata oluştu.');
+            alert('An error occurred while submitting the review.');
         }
     };
 
     const hasCustomerFeedback = (product) => {
-
-        console.log("feedback", product.feedbacks)
-        console.log("authStore.userId", authStore.userId)
         return product.feedbacks.some(feedback => feedback.customer === authStore.customerId);
     };
 
@@ -102,21 +101,21 @@ const OrderPage = () => {
 
     return (
         <div className="p-4">
-            <h1 className="text-2xl font-bold text-primary mb-4">Siparişlerim</h1>
+            <h1 className="text-2xl font-bold text-primary mb-4">My Orders</h1>
             <div className="space-y-4">
                 {orders.map((order) => (
                     <div key={order.id} className="bg-white p-4 rounded-lg shadow-md">
-                        <h2 className="text-xl font-bold mb-2">Sipariş ID: {order.id}</h2>
-                        <p className="text-gray-700 mb-2">Durum: {order.status}</p>
-                        <p className="text-gray-700 mb-2">Toplam Tutar: {order.totalPrice} TL</p>
-                        <p className="text-gray-700 mb-2">Oluşturulma Tarihi: {new Date(order.createdAt).toLocaleString()}</p>
-                        <h3 className="text-lg font-bold mb-2">Ürünler:</h3>
+                        <h2 className="text-xl font-bold mb-2">Order ID: {order.id}</h2>
+                        <p className="text-gray-700 mb-2">State: {order.status}</p>
+                        <p className="text-gray-700 mb-2">Total Amount: {order.totalPrice} TL</p>
+                        <p className="text-gray-700 mb-2">Creation Date: {new Date(order.createdAt).toLocaleString()}</p>
+                        <h3 className="text-lg font-bold mb-2">Products:</h3>
                         <ul className="list-disc list-inside">
                             {order.items.map((item) => {
                                 const product = getProductDetails(item.product);
                                 if (!product) {
                                     return (
-                                        <li key={item.id} className="text-gray-700">Ürün bilgisi yükleniyor...</li>
+                                        <li key={item.id} className="text-gray-700">Loading product information...</li>
                                     );
                                 }
                                 const feedback = feedbacks[product.id] || { rating: 0, comment: '' };
@@ -126,29 +125,29 @@ const OrderPage = () => {
                                         <img src={product.image} alt={product.name} className="w-16 h-16 object-cover rounded" />
                                         <div>
                                             <p className="text-gray-700">{product.name}</p>
-                                            <p className="text-gray-700">Adet: {item.quantity}</p>
+                                            <p className="text-gray-700">Number: {item.quantity}</p>
                                             <div className="mt-2">
                                                 {hasCustomerFeedback(product) ? (
                                                     <div>
-                                                        <p className="text-green-500 font-bold">Daha önce değerlendirme yapılmış</p>
+                                                        <p className="text-green-500 font-bold">Previously evaluated</p>
                                                         <StarRatingForOrder rating={customerFeedback.rating} onRatingChange={() => { }} />
                                                         <p className="text-gray-700 mt-2">{customerFeedback.comment}</p>
                                                     </div>
                                                 ) : (
                                                     <div>
-                                                        <p className="text-blue-500 font-bold">Değerlendir:</p>
+                                                        <p className="text-blue-500 font-bold">Evaluate:</p>
                                                         <StarRatingForOrder rating={feedback.rating} onRatingChange={(newRating) => handleRatingChange(product.id, newRating)} />
                                                         <textarea
                                                             value={feedback.comment}
                                                             onChange={(event) => handleCommentChange(product.id, event)}
                                                             className="w-full p-2 border border-gray-300 rounded mt-2"
-                                                            placeholder="Yorumunuzu yazın"
+                                                            placeholder="Write your comment"
                                                         />
                                                         <button
                                                             onClick={() => handleSubmitFeedback(product.id)}
                                                             className="bg-purple-500 text-white p-2 rounded mt-2"
                                                         >
-                                                            Gönder
+                                                            Send
                                                         </button>
                                                     </div>
                                                 )}

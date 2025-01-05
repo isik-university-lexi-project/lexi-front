@@ -76,45 +76,45 @@ const EditProductPage = () => {
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold text-primary mb-4">Ürün Güncelle</h1>
+      <h1 className="text-2xl font-bold text-primary mb-4">Update Product</h1>
       {product && (
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div>
-            <label className="block text-gray-700">Ürün İsmi</label>
+            <label className="block text-gray-700">Product Name</label>
             <input
-              {...register('name', { required: 'Bu alan zorunludur' })}
+              {...register('name', { required: 'This field is required' })}
               className="w-full p-2 border border-gray-300 rounded"
             />
             {errors.name && <span className="text-red-500">{errors.name.message}</span>}
           </div>
           <div>
-            <label className="block text-gray-700">Ürün Açıklaması</label>
+            <label className="block text-gray-700">Product Description</label>
             <textarea
-              {...register('description', { required: 'Bu alan zorunludur' })}
+              {...register('description', { required: 'This field is required' })}
               className="w-full p-2 border border-gray-300 rounded"
             />
             {errors.description && <span className="text-red-500">{errors.description.message}</span>}
           </div>
           <div>
-            <label className="block text-gray-700">Fiyat</label>
+            <label className="block text-gray-700">Price</label>
             <input
               type="number"
-              {...register('price', { required: 'Bu alan zorunludur' })}
+              {...register('price', { required: 'This field is required' })}
               className="w-full p-2 border border-gray-300 rounded"
             />
             {errors.price && <span className="text-red-500">{errors.price.message}</span>}
           </div>
           <div>
-            <label className="block text-gray-700">Stok Adedi</label>
+            <label className="block text-gray-700">Stock Quantity</label>
             <input
               type="number"
-              {...register('stockCount', { required: 'Bu alan zorunludur' })}
+              {...register('stockCount', { required: 'This field is required' })}
               className="w-full p-2 border border-gray-300 rounded"
             />
             {errors.stockCount && <span className="text-red-500">{errors.stockCount.message}</span>}
           </div>
           <div>
-            <label className="block text-gray-700">Ürün Resmi</label>
+            <label className="block text-gray-700">Product Image</label>
             <input
               type="file"
               {...register('image')}
@@ -126,22 +126,22 @@ const EditProductPage = () => {
           <div className="flex space-x-4">
             {product.image && (
               <div>
-                <p>Mevcut Resim:</p>
+                <p>Current Image:</p>
                 <img src={product.image} alt={product.name} className="w-32 h-32 object-cover rounded" />
               </div>
             )}
             {selectedImage && (
               <div>
-                <p>Seçilen Resim:</p>
+                <p>Selected Image:</p>
                 <img src={URL.createObjectURL(selectedImage)} alt="Selected" className="w-32 h-32 object-cover rounded" />
               </div>
             )}
           </div>
           {isInCart(product.id) && (
-            <div className="text-green-500 font-bold">Ürün zaten sepetinizde</div>
+            <div className="text-green-500 font-bold">The product is already in your cart</div>
           )}
           <button type="submit" className="bg-purple-500 text-white p-2 rounded" disabled={loading}>
-            {loading ? 'Yükleniyor...' : 'Güncelle'}
+            {loading ? 'Loading...' : 'Update'}
           </button>
         </form>
       )}

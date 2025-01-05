@@ -5,8 +5,6 @@ import axiosInstance from "../intercepts/axiosConfig";
 import { makePersistable } from 'mobx-persist-store';
 import { jwtDecode } from "jwt-decode";
 
-// tailwind => bootstrap 
-// MobX => redux, zustand, context api => state maanagement  => HOC, HOF => Higher Order Function, Higher Order Component
 
 class AuthStore {
     user = null;
@@ -65,7 +63,7 @@ class AuthStore {
             return response;
 
         }).catch(err => {
-            console.error("Giriş hatası:", err);
+            console.error("Login error:", err);
 
             this.errorMessage = err.response?.data?.detail || err.message;
 
@@ -79,16 +77,16 @@ class AuthStore {
     async register(email, password, name) {
         try {
             await axios.post("/auth/register", { email, password, name });
-            alert("Kayıt başarılı! Şimdi giriş yapabilirsiniz.");
+            alert("Registration successful! You can now log in.");
         } catch (error) {
-            console.error("Kayıt hatası:", error.response?.data?.message || error.message);
+            console.error("Registration error:", error.response?.data?.message || error.message);
         }
     }
 
     async refreshAccessToken() {
         try {
             const refreshToken = localStorage.getItem("refreshToken");
-            if (!refreshToken) throw new Error("Yenileme tokeni bulunamadı.");
+            if (!refreshToken) throw new Error("No refresh token found.");
 
             const response = await axios.post("/auth/refresh", { refreshToken });
             const { accessToken } = response.data;
@@ -96,7 +94,7 @@ class AuthStore {
             this.accessToken = accessToken;
             localStorage.setItem("accessToken", accessToken);
         } catch (error) {
-            console.error("Token yenileme hatası:", error.message);
+            console.error("Token refresh error:", error.message);
         }
     }
 

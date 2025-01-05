@@ -3,8 +3,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#8e44ad", // Mor
-        secondary: "#e4c1f9", // Lila
+        primary: "#8e44ad", // Purple 
+        secondary: "#e4c1f9", // light-purple
       },
     },
   },

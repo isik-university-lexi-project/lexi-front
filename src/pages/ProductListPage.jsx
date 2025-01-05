@@ -41,15 +41,15 @@ const ProductListPage = () => {
 
   const confirmDelete = (id) => {
     confirmAlert({
-      title: 'Silme İşlemi',
-      message: 'Bu ürünü silmek istediğinizden emin misiniz?',
+      title: 'Deletion Process',
+      message: 'Are you sure you want to delete this product?',
       buttons: [
         {
-          label: 'Evet',
+          label: 'Yes',
           onClick: () => handleDelete(id)
         },
         {
-          label: 'Hayır',
+          label: 'No',
           onClick: () => { }
         }
       ]
@@ -58,7 +58,7 @@ const ProductListPage = () => {
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold text-primary mb-4">Ürün Listeleme</h1>
+      <h1 className="text-2xl font-bold text-primary mb-4">Product Listing</h1>
       <div className="mb-4 flex">
         <form onSubmit={handleSearch} className="flex-grow flex">
           <input
@@ -69,23 +69,23 @@ const ProductListPage = () => {
             className="p-2 border border-gray-300 rounded-l-lg flex-grow"
           />
           <button type="submit" className="bg-purple-600 text-white p-2 rounded-r-lg">
-            Ara
+            Search
           </button>
         </form>
         <Link to="/add-product" className="bg-purple-500 text-white p-2 rounded ml-4 inline-flex items-center">
           <PlusCircleIcon className="w-5 h-5 mr-1" />
-          Ürün Ekle
+          Add Product
         </Link>
       </div>
       <table className="min-w-full bg-white">
         <thead>
           <tr>
-            <th className="py-2 px-4 border-b text-center">Resim</th>
-            <th className="py-2 px-4 border-b text-center">Ürün Adı</th>
-            <th className="py-2 px-4 border-b text-center">Fiyat</th>
-            <th className="py-2 px-4 border-b text-center">Stok</th>
-            <th className="py-2 px-4 border-b text-center">Ortalama Puan</th>
-            <th className="py-2 px-4 border-b text-center">İşlemler</th>
+            <th className="py-2 px-4 border-b text-center">Image</th>
+            <th className="py-2 px-4 border-b text-center">Product Name</th>
+            <th className="py-2 px-4 border-b text-center">Price</th>
+            <th className="py-2 px-4 border-b text-center">Stock</th>
+            <th className="py-2 px-4 border-b text-center">Average Rating</th>
+            <th className="py-2 px-4 border-b text-center">Editing</th>
           </tr>
         </thead>
         <tbody>
@@ -98,6 +98,7 @@ const ProductListPage = () => {
               <td className="py-2 px-4 border-b text-center">{product.price} TL</td>
               <td className="py-2 px-4 border-b text-center">{product.stockCount}</td>
               <td className="py-2 px-4 border-b text-center">{calculateAverageRating(product.feedbacks)}</td>
+              
               <td className="py-2 px-4 border-b text-center">
                 <div className="flex justify-center space-x-2">
                   <Link to={`/edit-product/${product.id}`} className="text-blue-500 hover:text-blue-700">

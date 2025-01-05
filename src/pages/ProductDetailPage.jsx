@@ -37,7 +37,7 @@ const ProductDetailPage = () => {
     try {
       await axiosInstance.post(`${ApiDefaults.BASE_URL}/cart/`, { product: productId, quantity });
       fetchCartItems();
-      alert('Ürün sepete eklendi');
+      alert('Product added to cart');
     } catch (error) {
       console.error('Error adding to cart:', error);
     }
@@ -62,20 +62,20 @@ const ProductDetailPage = () => {
       <h1 className="text-2xl font-bold text-primary mb-4">{product.name}</h1>
       <img src={product.image} alt={product.name} className="w-full h-64 object-cover mb-4 rounded" />
       <p className="text-gray-900 font-bold text-xl mb-4">{product.price} TL</p>
-      <p className="text-gray-600 mb-4">Stok: {product.stockCount}</p>
+      <p className="text-gray-600 mb-4">Stock: {product.stockCount}</p>
       <p className="text-gray-700 mb-4">{product.description}</p>
       <div className="flex items-center mb-4">
         <StarRating rating={calculateAverageRating(product.feedbacks)} />
         <span className="ml-2 text-gray-600">{calculateAverageRating(product.feedbacks)}</span>
       </div>
       {isInCart(product.id) ? (
-        <span className="text-green-500 font-bold mb-4">Ürün zaten sepetinizde</span>
+        <span className="text-green-500 font-bold mb-4">The product is already in your cart</span>
       ) : (
         <button onClick={() => addToCart(product.id, 1)} className="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 mb-4">
-          Sepete Ekle
+          Add to Cart
         </button>
       )}
-      <h2 className="text-xl font-bold text-primary mb-4">Yorumlar</h2>
+      <h2 className="text-xl font-bold text-primary mb-4">Comments</h2>
       {product.feedbacks.length > 0 ? (
         product.feedbacks.map((feedback) => (
           <div key={feedback.id} className="mb-4">
@@ -86,7 +86,7 @@ const ProductDetailPage = () => {
           </div>
         ))
       ) : (
-        <p className="text-gray-600">Henüz yorum yapılmamış.</p>
+        <p className="text-gray-600">No comments yet.</p>
       )}
     </div>
   );

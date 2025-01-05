@@ -47,9 +47,18 @@ const CartPage = () => {
     }
   };
 
-  const handleUpdateQuantity = async (cartItemId, quantity) => {
+  const handleUpdateQuantity = async (cartItemId, newQuantity) => {
+
+    const item = cartItems.find(item => item.id === cartItemId);
+    const product = products.find(p => p.id === item.product);
+
+    if (newQuantity > product.stockCount) {
+      alert(`You can order maximum ${product.stockCount} number.`);
+      return; // Stok sınırı aşıldığında işlemi iptal et
+    }
+
     try {
-      await axiosInstance.patch(`${ApiDefaults.BASE_URL}/cart/${cartItemId}/`, { quantity });
+      await axiosInstance.patch(`${ApiDefaults.BASE_URL}/cart/${cartItemId}/`, { quantity: newQuantity });
       fetchCartItems();
     } catch (error) {
       console.error('Error updating cart item:', error);
@@ -67,7 +76,7 @@ const CartPage = () => {
 
   const handlePlaceOrder = async () => {
     if (!selectedAddress) {
-      alert('Lütfen bir adres seçin.');
+      alert('Please select an address.');
       return;
     }
 
@@ -78,11 +87,11 @@ const CartPage = () => {
         shippingAddress: selectedAddress,
         cartItems: cartItemIds
       });
-      alert('Sipariş başarıyla oluşturuldu.');
+      alert('Order created successfully.');
       navigate('/orders'); // Siparişler sayfasına yönlendirme
     } catch (error) {
       console.error('Error placing order:', error);
-      alert('Sipariş oluşturulurken bir hata oluştu.');
+      alert('An error occurred while creating an order.');
     }
   };
 
@@ -95,7 +104,7 @@ const CartPage = () => {
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold text-primary mb-4">Sepetim</h1>
+      <h1 className="text-2xl font-bold text-primary mb-4">My Cart</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="space-y-4">
           {cartItems.map((item) => {
@@ -106,6 +115,8 @@ const CartPage = () => {
                 <div className="flex-grow">
                   <h2 className="text-xl font-bold mb-2">{product.name}</h2>
                   <p className="text-gray-900 font-bold mb-2">{product.price} TL</p>
+                  <p className="text-gray-700 mb-2">Stock: {product.stockCount}</p>
+
                   <div className="flex items-center">
                     <button onClick={() => handleUpdateQuantity(item.id, item.quantity - 1)} className="text-gray-500 hover:text-gray-700">
                       <MinusIcon className="w-5 h-5" />
@@ -129,7 +140,7 @@ const CartPage = () => {
           })}
         </div>
         <div>
-          <h2 className="text-xl font-bold text-primary mb-4">Adres Seçimi</h2>
+          <h2 className="text-xl font-bold text-primary mb-4">Address Selection</h2>
           {addresses.length > 0 ? (
             <div className="space-y-4">
               {addresses.map((address) => (
@@ -150,12 +161,12 @@ const CartPage = () => {
               ))}
             </div>
           ) : (
-            <p className="text-gray-700">Adres bulunamadı. <Link to="/addresses" className="text-blue-500">Adres ekleyin</Link>.</p>
+            <p className="text-gray-700">Address not found. <Link to="/addresses" className="text-blue-500">Add Address</Link>.</p>
           )}
           <div className="mt-4">
-            <h3 className="text-lg font-bold text-primary mb-2">Toplam Tutar: {calculateTotalPrice()} TL</h3>
+            <h3 className="text-lg font-bold text-primary mb-2">Total Amount: {calculateTotalPrice()} TL</h3>
             <button onClick={handlePlaceOrder} className="bg-purple-500 text-white p-3 text-lg rounded mt-4">
-              Sipariş Ver
+            Order Now
             </button>
           </div>
         </div>

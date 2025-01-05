@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axiosInstance from '../intercepts/axiosConfig';
 import ApiDefaults from '../defaults/ApiDefaults';
+import ReactMarkdown from 'react-markdown';
 
 const Chatbot = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -39,14 +40,44 @@ const Chatbot = () => {
                 <div className="bg-white border border-gray-300 rounded-lg shadow-lg p-4 mt-2 w-80">
                     <div className="h-64 overflow-y-scroll mb-4">
                         {messages.map((message, index) => (
-                            <div key={index} className={`mb-2 ${message.sender === 'user' ? 'text-right' : 'text-left'}`}>
-                                <span className={`inline-block p-2 rounded-lg ${message.sender === 'user' ? 'bg-blue-500 text-white' : 'bg-gray-200 text-gray-800'}`}>
-                                    {message.text}
-                                </span>
+                            <div
+                                key={index}
+                                className={`mb-2 ${message.sender === 'user' ? 'text-right' : 'text-left'}`}
+                            >
+                                <div
+                                    className={`inline-block p-2 rounded-lg ${
+                                        message.sender === 'user'
+                                            ? 'bg-blue-500 text-white'
+                                            : 'bg-gray-200 text-gray-800'
+                                    }`}
+                                >
+                                    {message.sender === 'bot' ? (
+                                        <ReactMarkdown
+                                            components={{
+                                                img: ({ src, alt }) => (
+                                                    <img
+                                                        src={src}
+                                                        alt={alt}
+                                                        style={{
+                                                            maxWidth: '100%',
+                                                            height: 'auto',
+                                                            borderRadius: '5px',
+                                                            marginTop: '10px',
+                                                        }}
+                                                    />
+                                                ),
+                                            }}
+                                        >
+                                            {message.text}
+                                        </ReactMarkdown>
+                                    ) : (
+                                        message.text
+                                    )}
+                                </div>
                             </div>
                         ))}
                         {loading && (
-                            <div className="text-center text-gray-500">thinking about it...</div>
+                            <div className="text-center text-gray-500">Thinking about it...</div>
                         )}
                     </div>
                     <div className="flex">

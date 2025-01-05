@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axiosInstance from '../intercepts/axiosConfig';
 import ApiDefaults from '../defaults/ApiDefaults';
-import { TrashIcon, CheckIcon } from '@heroicons/react/outline';
 
 const SellerOrderPage = () => {
     const [orders, setOrders] = useState([]);
@@ -19,80 +18,59 @@ const SellerOrderPage = () => {
         }
     };
 
-    const handleCompleteOrder = async (orderId) => {
-        try {
-            await axiosInstance.patch(`${ApiDefaults.BASE_URL}/order/${orderId}/`, { status: 'Complete' });
-            fetchOrders();
-            alert('Sipariş tamamlandı.');
-        } catch (error) {
-            console.error('Error completing order:', error);
-            alert('Sipariş tamamlanırken bir hata oluştu.');
-        }
-    };
-
-    const handleDeleteOrder = async (orderId) => {
-        const confirmDelete = window.confirm('Bu siparişi silmek istediğinizden emin misiniz?');
-        if (confirmDelete) {
-            try {
-                await axiosInstance.delete(`${ApiDefaults.BASE_URL}/order/${orderId}/`);
-                fetchOrders();
-                alert('Sipariş silindi.');
-            } catch (error) {
-                console.error('Error deleting order:', error);
-                alert('Sipariş silinirken bir hata oluştu.');
-            }
-        }
-    };
-
     return (
         <div className="p-4">
-            <h1 className="text-2xl font-bold text-primary mb-4">Satıcı Siparişleri</h1>
+            <h1 className="text-2xl font-bold text-primary mb-4">Seller Orders</h1>
             <table className="min-w-full bg-white">
                 <thead>
                     <tr>
-                        <th className="py-2 px-4 border-b">Sipariş ID</th>
-                        <th className="py-2 px-4 border-b">Toplam Tutar</th>
-                        <th className="py-2 px-4 border-b">Ürün</th>
-                        <th className="py-2 px-4 border-b">Müşteri</th>
+                        <th className="py-2 pl-2 pr-12 border-b text-center">Order ID</th>
+                        <th className="py-2 pl-4 pr-2 border-b text-left">Total Amount</th>
+                        <th className="py-2 pl-12 pr-2 border-b text-left">Product</th>
+                        <th className="py-2 pl-5 pr-2 border-b text-left">Customer Info</th>
+                        <th className="py-2 pl-12 pr-2 border-b text-left">Shipping Address</th>
+                        <th className="py-2 pl-2 pr-12 border-b">Order Date</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {orders.map((order) => (
-                        <tr key={order.id}>
-                            <td className="py-2 px-4 border-b">{order.order}</td>
-                            <td className="py-2 px-4 border-b">{order.product.price * order.quantity} TL</td>
+                    {orders.map((order) => {
+                        
+                        const [date, time] = order.shippingAddress.dateUpdated.split('T');
+                        const formattedTime = time.split('.')[0]; 
 
-                            <td className="py-2 px-4 border-b">
-                                <div className="flex items-center space-x-4">
-                                    <img src={order.product.image} alt={order.product.name} className="w-16 h-16 object-cover rounded" />
-                                    <div>
-                                        <p className="text-gray-700">{order.product.name}</p>
-                                        <p className="text-gray-700">Adet: {order.quantity}</p>
+                        return (
+                            <tr key={order.id}>
+                                <td className="py-2 px-3 border-b">{order.order}</td>
+                                <td className="py-2 px-3 border-b">{order.product.price * order.quantity} TL</td>
+                                <td className="py-2 px-3 border-b">
+                                    <div className="flex items-center space-x-2">
+                                        <img src={order.product.image} alt={order.product.name} className="w-16 h-16 object-cover rounded" />
+                                        <div>
+                                            <p className="text-gray-700">{order.product.name}</p>
+                                            <p className="text-gray-700">Quantity: {order.quantity}</p>
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
-                            <td className="py-2 px-4 border-b">
-                                <p className="text-gray-700">{order.customer.firstName} {order.customer.lastName}</p>
-                                <p className="text-gray-700">{order.customer.email}</p>
-                            </td>
-                            <td className="py-2 px-4 border-b">
+                                </td>
+                                <td className="py-2 px-4 border-b">
+                                    <p className="text-gray-700">{order.customer.firstName} {order.customer.lastName}</p>
+                                    <p className="text-gray-700">{order.customer.email}</p>
+                                </td>
 
-                                {/* <button
-                                    onClick={() => handleCompleteOrder(order.order)}
-                                    className="bg-green-500 text-white p-2 rounded mr-2"
-                                >
-                                    <CheckIcon className="w-5 h-5" />
-                                </button>
+                                <td className="py-2 px-3 border-b">
+                                    
+                                    <div>{order.shippingAddress.address}</div>
+                                    <div>{order.shippingAddress.city} , {order.shippingAddress.state}</div>
+                                    <div>{order.shippingAddress.zipcode}</div>
+                                    <div>{order.shippingAddress.telephone}</div>
+                                </td>
 
-                                <button
-                                    onClick={() => handleDeleteOrder(order.order)}
-                                    className="bg-red-500 text-white p-2 rounded"
-                                >
-                                    <TrashIcon className="w-5 h-5" />
-                                </button> */}
-                            </td>
-                        </tr>
-                    ))}
+                                <td className="py-2 px-3 border-b">
+                                    <div>{date}</div>
+                                    <div>{formattedTime}</div>
+                                </td>
+                            </tr>
+                        );
+                    })}
                 </tbody>
             </table>
         </div>

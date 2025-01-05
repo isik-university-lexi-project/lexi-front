@@ -28,7 +28,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     authStore.logout();
-    window.location.reload(); // Sayfayı yenileyerek kullanıcıyı çıkış yaptıktan sonra günceller
+    window.location.reload(); // Sayfayı yenileyerek kullanıcı çıkış yaptıktan sonra güncelleme
   };
 
   return (
@@ -42,17 +42,13 @@ const Navbar = () => {
                 <HomeIcon className="w-5 h-5 mr-1" />
                 Shop
               </Link>
-              <Link to="/about" className="text-white flex items-center">
-                <InformationCircleIcon className="w-5 h-5 mr-1" />
-                About Us
-              </Link>
               <Link to="/favorites" className="text-white flex items-center">
                 <HeartIcon className="w-5 h-5 mr-1" />
-                Favorilerim
+                My Favorites
               </Link>
               <Link to="/cart" className="text-white flex items-center relative">
                 <ShoppingCartIcon className="w-5 h-5 mr-1" />
-                Sepetim
+                My Cart
                 {cartItemCount > 0 && (
                   <span className="bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2">
                     {cartItemCount}
@@ -61,11 +57,11 @@ const Navbar = () => {
               </Link>
               <Link to="/addresses" className="text-white flex items-center">
                 <LocationMarkerIcon className="w-5 h-5 mr-1" />
-                Adreslerim
+                My Addresses
               </Link>
               <Link to="/orders" className="text-white flex items-center">
                 <ClipboardListIcon className="w-5 h-5 mr-1" />
-                Siparişlerim
+                My Orders
               </Link>
             </>
           )}
@@ -73,27 +69,27 @@ const Navbar = () => {
             <>
               <Link to="/product-list" className="text-white flex items-center">
                 <ViewListIcon className="w-5 h-5 mr-1" />
-                Ürünlerim
+                My Products
               </Link>
               <Link to="/add-product" className="text-white flex items-center">
                 <PlusCircleIcon className="w-5 h-5 mr-1" />
-                Yeni Ürün Ekle
+                Add New Product
               </Link>
               <Link to="/seller-orders" className="text-white flex items-center">
                 <ClipboardListIcon className="w-5 h-5 mr-1" />
-                Satıcı Siparişleri
+                Seller Orders
               </Link>
             </>
           )}
           {authStore.isLoggedIn ? (
             <button onClick={handleLogout} className="text-white flex items-center">
               <LogoutIcon className="w-5 h-5 mr-1" />
-              Çıkış Yap
+              Log Out
             </button>
           ) : (
             <Link to="/login" className="text-white flex items-center">
               <LoginIcon className="w-5 h-5 mr-1" />
-              Giriş Yap
+              Login
             </Link>
           )}
         </div>
@@ -119,11 +115,11 @@ const Navbar = () => {
               </Link>
               <Link to="/favorites" className="block px-4 py-2 text-white flex items-center">
                 <HeartIcon className="w-5 h-5 mr-1" />
-                Favorilerim
+                My Favorites
               </Link>
               <Link to="/cart" className="block px-4 py-2 text-white flex items-center relative">
                 <ShoppingCartIcon className="w-5 h-5 mr-1" />
-                Sepetim
+                My Cart
                 {cartItemCount > 0 && (
                   <span className="bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center absolute top-0 right-0 transform translate-x-1/2 -translate-y-1/2">
                     {cartItemCount}
@@ -132,11 +128,11 @@ const Navbar = () => {
               </Link>
               <Link to="/addresses" className="block px-4 py-2 text-white flex items-center">
                 <LocationMarkerIcon className="w-5 h-5 mr-1" />
-                Adreslerim
+                My Addresses
               </Link>
               <Link to="/orders" className="block px-4 py-2 text-white flex items-center">
                 <ClipboardListIcon className="w-5 h-5 mr-1" />
-                Siparişlerim
+                My Orders
               </Link>
             </>
           )}
@@ -144,27 +140,27 @@ const Navbar = () => {
             <>
               <Link to="/product-list" className="block px-4 py-2 text-white flex items-center">
                 <ViewListIcon className="w-5 h-5 mr-1" />
-                Ürünlerim
+                My Products
               </Link>
               <Link to="/add-product" className="block px-4 py-2 text-white flex items-center">
                 <PlusCircleIcon className="w-5 h-5 mr-1" />
-                Yeni Ürün Ekle
+                Add New Product
               </Link>
               <Link to="/seller-orders" className="block px-4 py-2 text-white flex items-center">
                 <ClipboardListIcon className="w-5 h-5 mr-1" />
-                Satıcı Siparişleri
+                Seller Orders
               </Link>
             </>
           )}
           {authStore.isLoggedIn ? (
             <button onClick={handleLogout} className="block px-4 py-2 text-white flex items-center">
               <LogoutIcon className="w-5 h-5 mr-1" />
-              Çıkış Yap
+              Log Out
             </button>
           ) : (
             <Link to="/login" className="block px-4 py-2 text-white flex items-center">
               <LoginIcon className="w-5 h-5 mr-1" />
-              Giriş Yap
+              Login
             </Link>
           )}
         </div>

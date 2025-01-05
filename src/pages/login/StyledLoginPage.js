@@ -23,14 +23,14 @@ export const StyledLoginpage = styled.div`
   .login-container {
     background-color: #6b5b95;
     display: flex;
-    width: 60%;
+    width: 75%;
     max-width: 1200px;
-    height: 85%;
+    height: 80%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 
 
     .left {
-      flex: 1;
+      flex: 2;
       img {
         height: 100%;
         width: 190%;
@@ -38,7 +38,7 @@ export const StyledLoginpage = styled.div`
     }
 
     .right {
-      flex: 2;
+      flex: 1;
       padding: 50px;
       display: flex;
       flex-direction: column;
@@ -48,11 +48,11 @@ export const StyledLoginpage = styled.div`
       form {
         display: flex;
         flex-direction: column;
-        width: 60%;
+        width: 75%;
         max-width: 300px;
         gap: 20px; /* Elemanlar arası boşluk */
-        right:50%;
-        transform: translateX(45%);
+        right:70%;
+        transform: translateX(10%);
 
 
         .form-element {
@@ -60,13 +60,12 @@ export const StyledLoginpage = styled.div`
 
           img {
             position: absolute;
-            top: 40%;
-            right: 10px;
+            top: 50%;
             transform: translateY(-50%);
             height: 25px;
             width: 25px;
             cursor: pointer;
-            right:0%;
+            right:3%;
           }
 
           span {
@@ -102,7 +101,7 @@ export const StyledLoginpage = styled.div`
           margin-bottom:10px;
           height:70px;
           width:70px;
-          left:82%;
+          left:77%;
           transform: translateX(5%);
           transform: translateY(-50%);
           }
@@ -126,7 +125,7 @@ export const StyledLoginpage = styled.div`
         font-size:18px;
         width: 100%;
         right:20%;
-        transform: translateX(20%);
+        transform: translateX(0%);
       }
 
       .sign-up-btn-container {
@@ -136,6 +135,7 @@ export const StyledLoginpage = styled.div`
           background-color: transparent;
           border: none;
           cursor: pointer;
+          
         }
       }
     }
