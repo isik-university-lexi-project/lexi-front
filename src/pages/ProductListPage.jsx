@@ -65,7 +65,7 @@ const ProductListPage = () => {
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Ürün ara..."
+            placeholder="Search..."
             className="p-2 border border-gray-300 rounded-l-lg flex-grow"
           />
           <button type="submit" className="bg-purple-600 text-white p-2 rounded-r-lg">

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { HomeIcon, InformationCircleIcon, LoginIcon, LogoutIcon, HeartIcon, ShoppingCartIcon, ViewListIcon, PlusCircleIcon, LocationMarkerIcon, ClipboardListIcon } from '@heroicons/react/outline';
+import { HomeIcon, InformationCircleIcon, LoginIcon, LogoutIcon, HeartIcon, ShoppingCartIcon, ViewListIcon, PlusCircleIcon, LocationMarkerIcon, ClipboardListIcon, ChatAltIcon } from '@heroicons/react/outline';
 import axiosInstance from '../intercepts/axiosConfig';
 import ApiDefaults from '../defaults/ApiDefaults';
 import authStore from '../stores/authStore';
@@ -78,6 +78,10 @@ const Navbar = () => {
               <Link to="/seller-orders" className="text-white flex items-center">
                 <ClipboardListIcon className="w-5 h-5 mr-1" />
                 Seller Orders
+              </Link>
+              <Link to="/feedbacks" className="text-white flex items-center">
+                <ChatAltIcon className="w-5 h-5 mr-1" />
+                Feedbacks
               </Link>
             </>
           )}

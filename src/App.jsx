@@ -7,6 +7,7 @@ import AddProductPage from "./pages/AddProductPage";
 import EditProductPage from "./pages/EditProductPage";
 import FavoritesPage from "./pages/FavoritesPage";
 import CartPage from "./pages/CartPage";
+import FeedbackPage from "./pages/FeedbackPage";  //
 import Navbar from "./components/Navbar";
 import Chatbot from "./components/Chatbot";
 import { useState, useEffect } from "react";
@@ -34,6 +35,7 @@ const App = observer(() => {
               <Route path="/add-product" element={<AddProductPage />} />
               <Route path="/edit-product/:id" element={<EditProductPage />} />
               <Route path="/seller-orders" element={<SellerOrderPage />} />
+              <Route path="/feedbacks" element={<FeedbackPage />} />
               <Route path="*" element={<Navigate to="/product-list" />} />
             </>
           ) : (

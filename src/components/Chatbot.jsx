@@ -19,7 +19,12 @@ const Chatbot = () => {
 
         try {
             const response = await axiosInstance.post(`${ApiDefaults.BASE_URL}/chat/`, { query: input });
-            const botMessages = response.data.message.map((msg) => ({ sender: 'bot', text: msg }));
+            const botMessages = response.data.message.map((msg) => {
+                // Eğer mesajda URL varsa, testserver'ı doğru URL ile değiştirme
+                const updatedMessage = msg.replace(/http:\/\/testserver/g, 'http://178.62.243.192:1337');
+                return { sender: 'bot', text: updatedMessage };
+            });
+
             setMessages([...messages, userMessage, ...botMessages]);
         } catch (error) {
             console.error('Error sending message:', error);
