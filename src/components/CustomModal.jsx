@@ -14,33 +14,35 @@ width:100%;
 z-index:99;
 
 .modal-container{
-background-color: #622569;
+background-color: #d64161;
 margin:auto;
 padding:50px 100px;
-
+text-color:#FFFF;
+color:black;
 }
 
 .modal-buttons{
     margin-top:20px;
     display:flex;
     justify-content:space-evenly;
+    
 }
 
-.ok-button,
-.no-button{
+.ok-button{
 
-    border:none;
+    border:2px solid #463D4B;
+    border-radius: 10px;
     padding:10px 40px;
-    color:#622569;
-    cursor:pointer;
+    color:#FFFF;
+    background-color:#FF6F6F;  /
+    cursor: pointer;
+    transition: all 0.3s ease;
 
     :hover{
     opacity:0.8;
+    background-color: #c83349;
     }
-}
-
-.no-button{
-background-color: #c83349;
+  
 }
 
 `;

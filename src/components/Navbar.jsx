@@ -29,6 +29,7 @@ const Navbar = () => {
   const handleLogout = () => {
     authStore.logout();
     window.location.reload(); // Sayfayı yenileyerek kullanıcı çıkış yaptıktan sonra güncelleme
+    window.location.href = "/login";   //kulllanıcı cıkıs yapınca login e yonlendir
   };
 
   return (

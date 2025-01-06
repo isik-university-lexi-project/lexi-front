@@ -11,11 +11,11 @@ import axios from "axios";
 import ApiDefaults from "../defaults/ApiDefaults.js";
 
 
+
 const SignUpForm = ({ setVisibleLogin }) => {
   const [loading, setLoading] = useState(false);
   const [displayWarningModal, setDisplayWarningModal] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
-
   const navigate = useNavigate();
   const [visiblePassword, setVisiblePassword] = useState(false);
 
@@ -27,8 +27,10 @@ const SignUpForm = ({ setVisibleLogin }) => {
 
   const onSubmit = async (data) => {
     setLoading(true);
+
+    // Şifreler match mi kontrol et
     if (data.passwordCheck === data.password) {
-      console.log("User Type:", data.userType); // User type buradan alınır.
+      console.log("User Type:", data.userType); // User type buradan alıyor
 
       setLoading(true);
       setErrorMsg('');
@@ -62,8 +64,10 @@ const SignUpForm = ({ setVisibleLogin }) => {
         setLoading(false);
       }
     } else {
+      // Şifreler uyuşmadığında loading'i false yapıyoruz
+      setLoading(false);
       setDisplayWarningModal(true);
-      setErrorMsg("Passwords are not the same");
+      setErrorMsg("Passwords Are Not The Same. Please Check! ");
     }
   };
 
@@ -139,7 +143,6 @@ const SignUpForm = ({ setVisibleLogin }) => {
           />
           <span>{errors?.username?.message}</span>
         </div>
-
 
         <div className="form-element">
           <div style={{ position: "relative", width: "100%" }}>
